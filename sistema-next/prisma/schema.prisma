@@ -24,6 +24,7 @@ model User {
 
   borrowings         Borrowing[]  @relation("Borrower")
   approvedBorrowings Borrowing[]  @relation("Approver")
+  receivedReturns    ReturnRecord[] @relation("Receiver")
   activityLogs       ActivityLog[]
   notifications      Notification[]
 
@@ -131,7 +132,7 @@ model ReturnRecord {
   updatedAt   DateTime  @updatedAt @map("updated_at")
 
   borrowing Borrowing      @relation(fields: [borrowingId], references: [id], onDelete: Cascade)
-  receiver  User?          @relation(fields: [receivedBy], references: [id])
+  receiver  User?          @relation("Receiver", fields: [receivedBy], references: [id])
   details   ReturnDetail[]
 
   @@index([status])
